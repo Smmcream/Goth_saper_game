@@ -1,0 +1,854 @@
+/* Готические шрифты */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --scale-factor: 1;
+    --min-scale: 0.6;
+    --max-scale: 1.2;
+}
+
+body {
+    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 50%, #2d2d2d 100%);
+    color: #e0e0e0;
+    font-family: 'MedievalSharp', cursive;
+    min-height: 100vh;
+    overflow: hidden;
+    font-size: calc(16px * var(--scale-factor));
+}
+
+/* Заголовки с готическим шрифтом */
+.main-title, .gothic-title, .clan-title, .scroll-content h2 {
+    font-family: 'UnifrakturMaguntia', cursive;
+    font-weight: normal;
+}
+
+/* Основной текст */
+body, .start-btn, .play-btn, .gothic-btn, .confirm-btn {
+    font-family: 'MedievalSharp', cursive;
+}
+
+/* Экранная система */
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* Начальный экран */
+.start-container {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.9);
+    padding: calc(30px * var(--scale-factor));
+    border: calc(3px * var(--scale-factor)) solid #8B0000;
+    border-radius: calc(20px * var(--scale-factor));
+    box-shadow: 0 0 calc(50px * var(--scale-factor)) rgba(139, 0, 0, 0.7);
+    position: relative;
+    max-width: min(90vw, 800px);
+    width: 100%;
+}
+
+.main-title {
+    color: #8B0000;
+    font-size: calc(3em * var(--scale-factor));
+    margin-bottom: calc(20px * var(--scale-factor));
+    text-shadow: calc(3px * var(--scale-factor)) calc(3px * var(--scale-factor)) calc(6px * var(--scale-factor)) #000;
+    letter-spacing: calc(2px * var(--scale-factor));
+    line-height: 1.2;
+}
+
+.subtitle {
+    color: #c0c0c0;
+    font-size: calc(1.5em * var(--scale-factor));
+    margin-bottom: calc(40px * var(--scale-factor));
+    font-style: italic;
+}
+
+.start-btn {
+    background: linear-gradient(135deg, #8B0000, #660000);
+    color: white;
+    border: calc(2px * var(--scale-factor)) solid #FF0000;
+    padding: calc(20px * var(--scale-factor)) calc(50px * var(--scale-factor));
+    font-size: calc(1.5em * var(--scale-factor));
+    border-radius: calc(10px * var(--scale-factor));
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: calc(2px * var(--scale-factor));
+    transition: all 0.3s ease;
+    text-shadow: calc(2px * var(--scale-factor)) calc(2px * var(--scale-factor)) calc(4px * var(--scale-factor)) #000;
+    font-family: 'MedievalSharp', cursive;
+    margin-bottom: calc(40px * var(--scale-factor));
+}
+
+.start-btn:hover {
+    background: linear-gradient(135deg, #A52A2A, #8B0000);
+    transform: scale(1.1);
+    box-shadow: 0 0 calc(30px * var(--scale-factor)) rgba(255, 0, 0, 0.6);
+}
+
+/* Свечи в строку */
+.candles-start {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: calc(30px * var(--scale-factor));
+    margin-bottom: calc(30px * var(--scale-factor));
+}
+
+.candles-start .candle {
+    font-size: calc(1.8em * var(--scale-factor));
+    text-shadow: 0 0 calc(10px * var(--scale-factor)) #8B0000, 0 0 calc(20px * var(--scale-factor)) #FF0000;
+    animation: flicker 3s infinite alternate;
+}
+
+/* Летучие мыши - начальный экран */
+.bats-start {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 calc(20px * var(--scale-factor));
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+.bats-start .bat {
+    font-size: calc(2em * var(--scale-factor));
+    animation: batFly 4s infinite ease-in-out;
+}
+
+.bats-start .bat:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.bats-start .bat:nth-child(2) {
+    animation-delay: 2s;
+}
+
+@keyframes batFly {
+    0%, 100% { 
+        transform: translateY(0px) rotate(0deg); 
+        opacity: 0.7;
+    }
+    25% { 
+        transform: translateY(calc(-20px * var(--scale-factor))) rotate(-10deg); 
+        opacity: 1;
+    }
+    50% { 
+        transform: translateY(calc(10px * var(--scale-factor))) rotate(10deg); 
+        opacity: 0.8;
+    }
+    75% { 
+        transform: translateY(calc(-15px * var(--scale-factor))) rotate(-5deg); 
+        opacity: 0.9;
+    }
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 0.8; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* Управление музыкой */
+.music-controls {
+    margin-top: calc(20px * var(--scale-factor));
+}
+
+.music-btn {
+    background: rgba(139, 0, 0, 0.3);
+    color: #c0c0c0;
+    border: calc(1px * var(--scale-factor)) solid #8B0000;
+    padding: calc(8px * var(--scale-factor)) calc(16px * var(--scale-factor));
+    border-radius: calc(5px * var(--scale-factor));
+    cursor: pointer;
+    font-size: calc(0.9em * var(--scale-factor));
+    transition: all 0.3s ease;
+}
+
+.music-btn:hover {
+    background: rgba(139, 0, 0, 0.5);
+    border-color: #FF0000;
+}
+
+.music-btn-small {
+    background: rgba(139, 0, 0, 0.3);
+    color: #c0c0c0;
+    border: calc(1px * var(--scale-factor)) solid #8B0000;
+    padding: calc(6px * var(--scale-factor)) calc(10px * var(--scale-factor));
+    border-radius: calc(5px * var(--scale-factor));
+    cursor: pointer;
+    font-size: calc(0.9em * var(--scale-factor));
+    transition: all 0.3s ease;
+}
+
+.music-btn-small:hover {
+    background: rgba(139, 0, 0, 0.5);
+    border-color: #FF0000;
+}
+
+/* Экран выбора клана */
+.clan-container {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.9);
+    padding: calc(30px * var(--scale-factor));
+    border: calc(3px * var(--scale-factor)) solid #8B0000;
+    border-radius: calc(20px * var(--scale-factor));
+    box-shadow: 0 0 calc(50px * var(--scale-factor)) rgba(139, 0, 0, 0.7);
+    max-width: min(95vw, 1000px);
+    width: 100%;
+}
+
+.clan-title {
+    color: #8B0000;
+    font-size: calc(2.8em * var(--scale-factor));
+    margin-bottom: calc(20px * var(--scale-factor));
+    text-shadow: calc(3px * var(--scale-factor)) calc(3px * var(--scale-factor)) calc(6px * var(--scale-factor)) #000;
+}
+
+.clan-subtitle {
+    color: #c0c0c0;
+    font-size: calc(1.3em * var(--scale-factor));
+    margin-bottom: calc(40px * var(--scale-factor));
+    font-style: italic;
+}
+
+.clans-selection {
+    display: flex;
+    gap: calc(20px * var(--scale-factor));
+    margin: calc(30px * var(--scale-factor)) 0;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.clan-option {
+    background: rgba(139, 0, 0, 0.2);
+    border: calc(2px * var(--scale-factor)) solid #8B0000;
+    border-radius: calc(15px * var(--scale-factor));
+    padding: calc(25px * var(--scale-factor));
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: min(400px, 90vw);
+    max-width: 500px;
+    font-size: calc(1em * var(--scale-factor));
+}
+
+.clan-option:hover {
+    background: rgba(139, 0, 0, 0.4);
+    transform: translateY(calc(-5px * var(--scale-factor)));
+    box-shadow: 0 calc(10px * var(--scale-factor)) calc(25px * var(--scale-factor)) rgba(255, 0, 0, 0.3);
+}
+
+.clan-option.selected {
+    background: rgba(139, 0, 0, 0.6);
+    border-color: #FF0000;
+    box-shadow: 0 0 calc(30px * var(--scale-factor)) rgba(255, 0, 0, 0.5);
+}
+
+.clan-symbol {
+    font-size: calc(4em * var(--scale-factor));
+    margin-bottom: calc(15px * var(--scale-factor));
+}
+
+.clan-option h3 {
+    color: #8B0000;
+    font-size: calc(1.8em * var(--scale-factor));
+    margin-bottom: calc(15px * var(--scale-factor));
+    font-family: 'UnifrakturMaguntia', cursive;
+}
+
+.clan-option p {
+    color: #c0c0c0;
+    margin-bottom: calc(15px * var(--scale-factor));
+    line-height: 1.5;
+    font-size: calc(1em * var(--scale-factor));
+}
+
+.clan-stats {
+    display: flex;
+    flex-direction: column;
+    gap: calc(8px * var(--scale-factor));
+    color: #a0a0a0;
+    font-size: calc(0.9em * var(--scale-factor));
+}
+
+.confirm-btn {
+    background: linear-gradient(135deg, #8B0000, #660000);
+    color: white;
+    border: calc(2px * var(--scale-factor)) solid #8B0000;
+    padding: calc(15px * var(--scale-factor)) calc(35px * var(--scale-factor));
+    font-size: calc(1.3em * var(--scale-factor));
+    border-radius: calc(8px * var(--scale-factor));
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: calc(2px * var(--scale-factor));
+    transition: all 0.3s ease;
+    text-shadow: calc(2px * var(--scale-factor)) calc(2px * var(--scale-factor)) calc(4px * var(--scale-factor)) #000;
+    margin-top: calc(20px * var(--scale-factor));
+}
+
+.confirm-btn:enabled {
+    border-color: #FF0000;
+    background: linear-gradient(135deg, #A52A2A, #8B0000);
+    box-shadow: 0 0 calc(20px * var(--scale-factor)) rgba(255, 0, 0, 0.4);
+}
+
+.confirm-btn:enabled:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 calc(30px * var(--scale-factor)) rgba(255, 0, 0, 0.6);
+}
+
+/* Свиток с правилами */
+.scroll-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc(30px * var(--scale-factor));
+    width: 100%;
+    max-width: min(95vw, 900px);
+}
+
+.ancient-scroll {
+    background: #f5e6c8;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.1"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="%238B0000" stroke-width="2"/></svg>');
+    border: calc(12px * var(--scale-factor)) solid #8B4513;
+    border-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><path d="M0,0 L50,0 L50,50 L0,50 Z" fill="%23592c0f" stroke="%233d1f0a" stroke-width="2"/></svg>') 30 round;
+    padding: calc(30px * var(--scale-factor));
+    max-width: min(90vw, 800px);
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 0 calc(50px * var(--scale-factor)) rgba(0, 0, 0, 0.8);
+    position: relative;
+    animation: scrollUnfold 1.5s ease-out;
+}
+
+@keyframes scrollUnfold {
+    0% { transform: scale(0.8) rotate(-5deg); opacity: 0; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.scroll-content {
+    color: #3d1f0a;
+    text-align: center;
+    font-family: 'MedievalSharp', cursive;
+    font-size: calc(1.1em * var(--scale-factor));
+}
+
+.scroll-content h2 {
+    color: #8B0000;
+    font-size: calc(2.2em * var(--scale-factor));
+    margin-bottom: calc(25px * var(--scale-factor));
+    border-bottom: calc(2px * var(--scale-factor)) solid #8B0000;
+    padding-bottom: calc(10px * var(--scale-factor));
+    font-family: 'UnifrakturMaguntia', cursive;
+}
+
+.rule-section {
+    margin: calc(20px * var(--scale-factor)) 0;
+    padding: calc(15px * var(--scale-factor));
+    background: rgba(139, 0, 0, 0.1);
+    border-radius: calc(8px * var(--scale-factor));
+    border-left: calc(4px * var(--scale-factor)) solid #8B0000;
+    font-size: calc(1em * var(--scale-factor));
+}
+
+.rule-section h3 {
+    color: #8B0000;
+    margin-bottom: calc(12px * var(--scale-factor));
+    font-size: calc(1.5em * var(--scale-factor));
+    font-family: 'UnifrakturMaguntia', cursive;
+}
+
+.rule-section ul {
+    text-align: left;
+    margin-left: calc(15px * var(--scale-factor));
+}
+
+.rule-section li {
+    margin-bottom: calc(8px * var(--scale-factor));
+    line-height: 1.4;
+}
+
+.highlight {
+    color: #8B0000;
+    font-weight: bold;
+    font-size: calc(1em * var(--scale-factor));
+}
+
+.warning-text {
+    color: #8B0000;
+    font-weight: bold;
+    font-style: italic;
+    font-size: calc(1.1em * var(--scale-factor));
+}
+
+.player-clan {
+    margin-top: calc(15px * var(--scale-factor));
+    padding: calc(12px * var(--scale-factor));
+    background: rgba(139, 0, 0, 0.2);
+    border-radius: calc(8px * var(--scale-factor));
+    border: calc(2px * var(--scale-factor)) solid #8B0000;
+    font-size: calc(1.1em * var(--scale-factor));
+}
+
+.play-btn {
+    background: linear-gradient(135deg, #8B0000, #660000);
+    color: white;
+    border: calc(2px * var(--scale-factor)) solid #FF0000;
+    padding: calc(15px * var(--scale-factor)) calc(35px * var(--scale-factor));
+    font-size: calc(1.3em * var(--scale-factor));
+    border-radius: calc(8px * var(--scale-factor));
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: calc(2px * var(--scale-factor));
+    transition: all 0.3s ease;
+    text-shadow: calc(2px * var(--scale-factor)) calc(2px * var(--scale-factor)) calc(4px * var(--scale-factor)) #000;
+}
+
+.play-btn:hover {
+    background: linear-gradient(135deg, #A52A2A, #8B0000);
+    transform: scale(1.05);
+    box-shadow: 0 0 calc(20px * var(--scale-factor)) rgba(255, 0, 0, 0.5);
+}
+
+/* Игровые стили */
+.gothic-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    padding: calc(15px * var(--scale-factor));
+    width: 100%;
+}
+
+/* Летучие мыши в игре */
+.bats-left, .bats-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: calc(50px * var(--scale-factor));
+    pointer-events: none;
+    z-index: 1;
+}
+
+.bats-left {
+    left: calc(20px * var(--scale-factor));
+}
+
+.bats-right {
+    right: calc(20px * var(--scale-factor));
+}
+
+.bats-left .bat, .bats-right .bat {
+    font-size: calc(1.8em * var(--scale-factor));
+    animation: batFloat 3s infinite ease-in-out;
+}
+
+.bats-left .bat:nth-child(1), .bats-right .bat:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.bats-left .bat:nth-child(2), .bats-right .bat:nth-child(2) {
+    animation-delay: 1.5s;
+}
+
+@keyframes batFloat {
+    0%, 100% { 
+        transform: translateY(0px) rotate(0deg); 
+        opacity: 0.6;
+    }
+    50% { 
+        transform: translateY(calc(-15px * var(--scale-factor))) rotate(5deg); 
+        opacity: 1;
+    }
+}
+
+.game-area {
+    background: rgba(0, 0, 0, 0.8);
+    border: calc(2px * var(--scale-factor)) solid #8B0000;
+    border-radius: calc(15px * var(--scale-factor));
+    padding: calc(25px * var(--scale-factor));
+    text-align: center;
+    box-shadow: 0 0 calc(25px * var(--scale-factor)) rgba(139, 0, 0, 0.5);
+    max-width: min(95vw, 550px);
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.gothic-title {
+    color: #8B0000;
+    font-size: calc(2.2em * var(--scale-factor));
+    margin-bottom: calc(15px * var(--scale-factor));
+    text-shadow: calc(2px * var(--scale-factor)) calc(2px * var(--scale-factor)) calc(4px * var(--scale-factor)) #000;
+    font-weight: normal;
+    letter-spacing: calc(2px * var(--scale-factor));
+    line-height: 1.2;
+}
+
+.game-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: calc(12px * var(--scale-factor));
+    margin-bottom: calc(15px * var(--scale-factor));
+    font-size: calc(1em * var(--scale-factor));
+}
+
+.stat {
+    background: rgba(139, 0, 0, 0.2);
+    padding: calc(10px * var(--scale-factor));
+    border-radius: calc(8px * var(--scale-factor));
+    border: calc(1px * var(--scale-factor)) solid #8B0000;
+}
+
+.stat-label {
+    display: block;
+    font-size: calc(0.9em * var(--scale-factor));
+    color: #c0c0c0;
+    margin-bottom: calc(4px * var(--scale-factor));
+}
+
+.stat-value {
+    display: block;
+    font-size: calc(1.1em * var(--scale-factor));
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: calc(6px * var(--scale-factor));
+    margin: calc(15px * var(--scale-factor)) auto;
+    max-width: min(80vw, 300px);
+    background: rgba(139, 0, 0, 0.1);
+    padding: calc(8px * var(--scale-factor));
+    border-radius: calc(10px * var(--scale-factor));
+}
+
+.cell {
+    background: #1a1a1a;
+    border: calc(2px * var(--scale-factor)) solid #8B0000;
+    border-radius: calc(5px * var(--scale-factor));
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(2em * var(--scale-factor));
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cell:hover {
+    background: #2a2a2a;
+    border-color: #FF0000;
+    transform: scale(1.05);
+    box-shadow: 0 0 calc(12px * var(--scale-factor)) rgba(255, 0, 0, 0.3);
+}
+
+.cell.revealed {
+    background: rgba(139, 0, 0, 0.3);
+    cursor: default;
+    transform: scale(1);
+}
+
+.cell.revealed:hover {
+    transform: scale(1);
+    box-shadow: none;
+}
+
+.cell.death {
+    background: rgba(255, 0, 0, 0.5);
+    animation: pulse 0.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.message-area {
+    margin: calc(15px * var(--scale-factor)) 0;
+    padding: calc(12px * var(--scale-factor));
+    background: rgba(139, 0, 0, 0.2);
+    border-radius: calc(8px * var(--scale-factor));
+    border-left: calc(3px * var(--scale-factor)) solid #8B0000;
+    font-style: italic;
+    min-height: calc(50px * var(--scale-factor));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(1.1em * var(--scale-factor));
+}
+
+.controls {
+    display: flex;
+    gap: calc(12px * var(--scale-factor));
+    justify-content: center;
+    margin-top: calc(15px * var(--scale-factor));
+    flex-wrap: wrap;
+}
+
+.gothic-btn {
+    background: linear-gradient(135deg, #8B0000, #660000);
+    color: white;
+    border: none;
+    padding: calc(12px * var(--scale-factor)) calc(20px * var(--scale-factor));
+    border-radius: calc(5px * var(--scale-factor));
+    cursor: pointer;
+    font-size: calc(1em * var(--scale-factor));
+    transition: all 0.3s ease;
+    text-shadow: calc(1px * var(--scale-factor)) calc(1px * var(--scale-factor)) calc(2px * var(--scale-factor)) #000;
+    font-family: 'MedievalSharp', cursive;
+}
+
+.gothic-btn:hover {
+    background: linear-gradient(135deg, #A52A2A, #8B0000);
+    transform: translateY(calc(-2px * var(--scale-factor)));
+    box-shadow: 0 calc(5px * var(--scale-factor)) calc(12px * var(--scale-factor)) rgba(139, 0, 0, 0.4);
+}
+
+/* Экран результата */
+.result-container {
+    background: rgba(0, 0, 0, 0.95);
+    padding: calc(40px * var(--scale-factor));
+    border: calc(3px * var(--scale-factor)) solid #8B0000;
+    border-radius: calc(20px * var(--scale-factor));
+    text-align: center;
+    box-shadow: 0 0 calc(40px * var(--scale-factor)) rgba(139, 0, 0, 0.8);
+    max-width: min(90vw, 600px);
+    width: 100%;
+}
+
+.result-title {
+    font-family: 'UnifrakturMaguntia', cursive;
+    font-size: calc(2.8em * var(--scale-factor));
+    margin-bottom: calc(25px * var(--scale-factor));
+}
+
+.result-message {
+    font-size: calc(1.3em * var(--scale-factor));
+    margin-bottom: calc(25px * var(--scale-factor));
+    line-height: 1.5;
+}
+
+/* Адаптивность по breakpoints */
+@media (max-width: 1920px) {
+    :root {
+        --scale-factor: 1.1;
+    }
+}
+
+@media (max-width: 1600px) {
+    :root {
+        --scale-factor: 1;
+    }
+}
+
+@media (max-width: 1366px) {
+    :root {
+        --scale-factor: 0.9;
+    }
+}
+
+@media (max-width: 1200px) {
+    :root {
+        --scale-factor: 0.85;
+    }
+}
+
+@media (max-width: 1024px) {
+    :root {
+        --scale-factor: 0.8;
+    }
+    
+    .bats-left, .bats-right {
+        gap: calc(30px * var(--scale-factor));
+    }
+}
+
+@media (max-width: 900px) {
+    :root {
+        --scale-factor: 0.75;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --scale-factor: 0.7;
+    }
+    
+    .screen {
+        padding: 15px;
+    }
+    
+    .bats-left, .bats-right, .bats-start {
+        display: none;
+    }
+    
+    .game-area { 
+        margin: 0; 
+        padding: 20px; 
+    }
+    
+    .clans-selection { 
+        flex-direction: column; 
+        align-items: center;
+    }
+    
+    .clan-option {
+        min-width: 100%;
+        max-width: 100%;
+    }
+    
+    .game-stats { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .gothic-btn {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
+@media (max-width: 600px) {
+    :root {
+        --scale-factor: 0.65;
+    }
+    
+    .start-container,
+    .clan-container,
+    .game-area {
+        padding: 20px 15px;
+    }
+    
+    .ancient-scroll {
+        padding: 20px 15px;
+        margin: 0 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --scale-factor: 0.6;
+    }
+    
+    .main-title {
+        font-size: calc(2.5em * var(--scale-factor));
+    }
+    
+    .clan-title {
+        font-size: calc(2.2em * var(--scale-factor));
+    }
+    
+    .gothic-title {
+        font-size: calc(1.8em * var(--scale-factor));
+    }
+    
+    .game-board {
+        max-width: 95vw;
+    }
+    
+    .cell {
+        font-size: calc(1.8em * var(--scale-factor));
+    }
+}
+
+@media (max-width: 360px) {
+    :root {
+        --scale-factor: 0.55;
+    }
+    
+    .screen {
+        padding: 10px;
+    }
+    
+    .start-container,
+    .clan-container,
+    .game-area {
+        padding: 15px 10px;
+    }
+}
+
+/* Очень маленькие экраны */
+@media (max-height: 600px) {
+    .screen {
+        align-items: flex-start;
+        padding-top: 20px;
+        overflow-y: auto;
+    }
+    
+    .start-container,
+    .clan-container,
+    .game-area {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
+
+/* Портретные мобильные устройства */
+@media (max-width: 768px) and (orientation: portrait) {
+    .gothic-container {
+        padding: 10px;
+    }
+    
+    .game-area {
+        max-width: 100%;
+    }
+}
+
+/* Ландшафтные мобильные устройства */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+    :root {
+        --scale-factor: 0.6;
+    }
+    
+    .screen {
+        padding: 10px;
+        align-items: flex-start;
+    }
+    
+    .start-container,
+    .clan-container {
+        margin-top: 10px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    .game-area {
+        padding: 15px;
+        max-width: 95vw;
+    }
+    
+    .game-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+}

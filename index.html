@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Готический Сапёр - Битва Кланов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Фоновое аудио - Gothic Ambient Music -->
+    <audio id="bgMusic" loop>
+        <source src="https://snapmuse.com/track/lost-scene-1917292" type="audio/mpeg">
+    </audio>
+    
+    <!-- Начальный экран -->
+    <div id="startScreen" class="screen active">
+        <div class="start-container">
+            <h1 class="main-title">🦇 Готический Сапёр 🦇</h1>
+            <p class="subtitle">Битва Древних Кланов</p>
+            <button class="start-btn" onclick="showClanSelection()">НАЧАТЬ</button>
+            
+            <!-- Свечи в строку -->
+            <div class="candles-start">
+                <div class="candle">🕯️</div>
+                <div class="candle">🕯️</div>
+                <div class="candle">🕯️</div>
+                <div class="candle">🕯️</div>
+                <div class="candle">🕯️</div>
+            </div>
+            
+            <!-- Летучие мыши -->
+            <div class="bats-start">
+                <div class="bat">🦇</div>
+                <div class="bat">🦇</div>
+            </div>
+            
+            <!-- Кнопка управления музыкой -->
+            <div class="music-controls">
+                <button class="music-btn" onclick="toggleMusic()">🔊 Включить музыку</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Выбор клана -->
+    <div id="clanScreen" class="screen">
+        <div class="clan-container">
+            <h2 class="clan-title">🏰 ВЫБЕРИ СВОЙ КЛАН 🏰</h2>
+            <p class="clan-subtitle">От твоего выбора зависит судьба этой битвы...</p>
+            
+            <div class="clans-selection">
+                <div class="clan-option" onclick="selectClan('🕸️')">
+                    <div class="clan-symbol">🕸️</div>
+                    <h3>ДРЕВНИЕ ПАУТИНЫ</h3>
+                    <p>Мастера иллюзий и теней. Плетут сети судьбы в тёмных уголках замка.</p>
+                    <div class="clan-stats">
+                        <span>⚡ Сила магии</span>
+                        <span>👁️ Контроль разума</span>
+                        <span>🌑 Теневые искусства</span>
+                    </div>
+                </div>
+                
+                <div class="clan-option" onclick="selectClan('💀')">
+                    <div class="clan-symbol">💀</div>
+                    <h3>ПРОКЛЯТЫЕ ЧЕРЕПА</h3>
+                    <p>Воины из загробного мира. Шепчут проклятья из глубины древних склепов.</p>
+                    <div class="clan-stats">
+                        <span>💀 Сила смерти</span>
+                        <span>⚰️ Некромантия</span>
+                        <span>🔮 Древние ритуалы</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="confirm-btn" onclick="showRules()" disabled id="confirmClan">ПОДТВЕРДИТЬ ВЫБОР</button>
+        </div>
+    </div>
+
+    <!-- Экран с правилами -->
+    <div id="rulesScreen" class="screen">
+        <div class="scroll-container">
+            <div class="ancient-scroll">
+                <div class="scroll-content">
+                    <h2>📜 СВИТОК ДРЕВНИХ ЗНАНИЙ 📜</h2>
+                    
+                    <div class="rule-section">
+                        <h3>🎯 СМЕРТЕЛЬНАЯ ЗАДАЧА</h3>
+                        <p>Ты - воин избранного клана. Перед тобой поле битвы 3x3, где скрываются символы обоих кланов.</p>
+                        <p><strong>Твоя миссия:</strong> найти <span class="highlight">5 символов своего клана</span>, не попав на символ вражеского клана.</p>
+                    </div>
+
+                    <div class="rule-section">
+                        <h3>⚔️ ПРАВИЛА ВЫЖИВАНИЯ</h3>
+                        <ul>
+                            <li>🎲 На поле скрыто 5 твоих символов и 4 вражеских</li>
+                            <li>✅ Открывай клетки - ищи символы своего клана</li>
+                            <li>💀 Наткнёшься на вражеский символ - мгновенная смерть!</li>
+                            <li>🏆 Найди 5 своих символов - победа в битве!</li>
+                            <li>🎮 Запоминай расположение - символы не меняются!</li>
+                        </ul>
+                    </div>
+
+                    <div class="rule-section">
+                        <h3>🔮 СТРАТЕГИЯ ВЫЖИВАНИЯ</h3>
+                        <p><strong>Запоминай расположение символов!</strong> При проигрыше расположение остаётся тем же.</p>
+                        <p>Только после победы символы перемешиваются заново.</p>
+                        <p class="warning-text">⚠️ Запоминай где были вражеские символы! ⚠️</p>
+                    </div>
+
+                    <div class="player-clan" id="playerClanInfo">
+                        <!-- Сюда вставится информация о выбранном клане -->
+                    </div>
+                </div>
+            </div>
+            <button class="play-btn" onclick="startGame()">НАЧАТЬ БИТВУ</button>
+        </div>
+    </div>
+
+    <!-- Игровой экран -->
+    <div id="gameScreen" class="screen">
+        <div class="gothic-container">
+            <!-- Летучие мыши по бокам -->
+            <div class="bats-left">
+                <div class="bat">🦇</div>
+                <div class="bat">🦇</div>
+            </div>
+            
+            <div class="bats-right">
+                <div class="bat">🦇</div>
+                <div class="bat">🦇</div>
+            </div>
+
+            <div class="game-area">
+                <div class="game-header">
+                    <h1 class="gothic-title">🦇 Битва Кланов 🦇</h1>
+                    <div class="player-info" id="playerInfo">
+                        <!-- Информация о игроке -->
+                    </div>
+                </div>
+                
+                <div class="game-stats">
+                    <div class="stat">
+                        <span class="stat-label">Найдено символов:</span>
+                        <span class="stat-value" id="foundSymbols">0/5</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Осталось клеток:</span>
+                        <span class="stat-value" id="remainingCells">9</span>
+                    </div>
+                </div>
+
+                <!-- Игровая доска -->
+                <div class="game-board" id="gameBoard">
+                    <!-- Клетки будут созданы через JavaScript -->
+                </div>
+
+                <div class="message-area" id="messageArea">
+                    Битва начинается... Запомни расположение символов!
+                </div>
+
+                <div class="controls">
+                    <button class="gothic-btn" onclick="resetGame()">🔄 Начать заново</button>
+                    <button class="gothic-btn" onclick="showRulesFromGame()">📜 Правила</button>
+                    <button class="music-btn-small" onclick="toggleMusic()">🔊</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран результата -->
+    <div id="resultScreen" class="screen">
+        <div class="result-container" id="resultContent">
+            <!-- Содержимое будет заполнено через JavaScript -->
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
